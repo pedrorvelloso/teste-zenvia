@@ -1,6 +1,6 @@
 const playGameService = require('../services/PlayGameService')
 
-const create = (request, response) => {
+function create(request, response) {
   const { player, opponent } = request.body
 
   const gameResult = playGameService.execute({
@@ -8,7 +8,7 @@ const create = (request, response) => {
     opponentPick: opponent,
   })
 
-  return response.json({ result: gameResult })
+  return response.json({ result: gameResult, game: { player, opponent } })
 }
 
 module.exports = { create }

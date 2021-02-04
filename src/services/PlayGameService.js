@@ -1,12 +1,9 @@
+const gameResult = require('../utils/gameResult')
+
 function execute({ playerPick, opponentPick }) {
-  const playerWin =
-    (playerPick === 'paper' && opponentPick === 'rock') ||
-    (playerPick === 'rock' && opponentPick === 'scissors') ||
-    (playerPick === 'scissors' && opponentPick === 'paper')
+  const result = gameResult({ playerPick, opponentPick })
 
-  if (playerPick === opponentPick) return 'draw'
-
-  return playerWin ? 'player' : 'opponent'
+  return result
 }
 
 module.exports = { execute }

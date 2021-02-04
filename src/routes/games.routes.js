@@ -2,12 +2,13 @@ const { Router } = require('express')
 const { celebrate, Joi, Segments } = require('celebrate')
 
 const GameController = require('../controller/GameController')
+const ComputerGameController = require('../controller/ComputerGameController')
 
-const possiblePicks = ['paper', 'rock', 'scissors']
+const possiblePicks = require('../utils/possiblePicks')
 
 const gamesRouter = Router()
 
-const bodyValidation = celebrate({
+const gameBodyValidation = celebrate({
   [Segments.BODY]: {
     player: Joi.string()
       .valid(...possiblePicks)
@@ -18,6 +19,15 @@ const bodyValidation = celebrate({
   },
 })
 
-gamesRouter.post('/', bodyValidation, GameController.create)
+const comBodyValidation = celebrate({
+  [Segments.BODY]: {
+    player: Joi.string()
+      .valid(...possiblePicks)
+      .required(),
+  },
+})
+
+gamesRouter.post('/', gameBodyValidation, GameController.create)
+gamesRouter.post('/com', comBodyValidation, ComputerGameController.create)
 
 module.exports = gamesRouter
