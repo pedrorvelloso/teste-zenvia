@@ -8,7 +8,7 @@ function execute({ playerPick }) {
 
   const result = gameResult({ playerPick, opponentPick: computerPick })
 
-  return { result: result === 'oppponent' ? 'computer' : result, game }
+  return { result: result === 'opponent' ? 'computer' : result, game }
 }
 
 module.exports = { execute }

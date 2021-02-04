@@ -14,5 +14,5 @@ module.exports = ({ playerPick, opponentPick }) => {
     (playerPick === 'rock' && opponentPick === 'scissors') ||
     (playerPick === 'scissors' && opponentPick === 'paper')
 
-  return playerWin ? 'player' : 'oppponent'
+  return playerWin ? 'player' : 'opponent'
 }
