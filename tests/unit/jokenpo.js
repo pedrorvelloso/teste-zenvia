@@ -1,38 +1,38 @@
-const gameResult = require('../../src/utils/gameResult')
+const jokenpo = require('../../src/utils/jokenpo')
 
-describe('gameResult', () => {
+describe('jokenpo', () => {
   it('should be able to process right results', () => {
-    const result1 = gameResult({ playerPick: 'rock', opponentPick: 'scissors' })
+    const result1 = jokenpo({ playerPick: 'rock', opponentPick: 'scissors' })
     expect(result1).toBe('player')
 
-    const result2 = gameResult({
+    const result2 = jokenpo({
       playerPick: 'scissors',
       opponentPick: 'paper',
     })
     expect(result2).toBe('player')
 
-    const result3 = gameResult({
+    const result3 = jokenpo({
       playerPick: 'paper',
       opponentPick: 'rock',
     })
     expect(result3).toBe('player')
 
-    const result4 = gameResult({ opponentPick: 'rock', playerPick: 'scissors' })
+    const result4 = jokenpo({ opponentPick: 'rock', playerPick: 'scissors' })
     expect(result4).toBe('opponent')
 
-    const result5 = gameResult({
+    const result5 = jokenpo({
       opponentPick: 'scissors',
       playerPick: 'paper',
     })
     expect(result5).toBe('opponent')
 
-    const result6 = gameResult({
+    const result6 = jokenpo({
       opponentPick: 'paper',
       playerPick: 'rock',
     })
     expect(result6).toBe('opponent')
 
-    const result7 = gameResult({
+    const result7 = jokenpo({
       opponentPick: 'paper',
       playerPick: 'paper',
     })
@@ -41,7 +41,7 @@ describe('gameResult', () => {
 
   it('should throw within bad pick', () => {
     expect(() =>
-      gameResult({
+      jokenpo({
         opponentPick: 'paper',
         playerPick: 'laser',
       }),
