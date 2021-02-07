@@ -1,4 +1,5 @@
 const jokenpo = require('../utils/jokenpo')
+const GameRepository = require('../database/repositories/GameRepository')
 
 /**
  * Aplica regras de negócio para execução de jokenpo
@@ -7,9 +8,18 @@ const jokenpo = require('../utils/jokenpo')
  * @param {string} playerPick escolha do jogador
  * @param {string} opponentPick escolha do adversário
  */
-function execute({ playerPick, opponentPick }) {
+async function execute({ playerPick, opponentPick }) {
   // aplica regras de negócio para execução da partida
-  return jokenpo({ playerPick, opponentPick })
+  const result = jokenpo({ playerPick, opponentPick })
+
+  // armazena jogo em banco de dados
+  const game = await GameRepository.create({
+    result,
+    player: playerPick,
+    opponent: opponentPick,
+  })
+
+  return game
 }
 
 module.exports = { execute }

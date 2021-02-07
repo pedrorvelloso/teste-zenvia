@@ -1,33 +1,29 @@
 const { Router } = require('express')
-const { celebrate, Joi, Segments } = require('celebrate')
 
 const GameController = require('../controller/GameController')
 const ComputerGameController = require('../controller/ComputerGameController')
 
-const possiblePicks = require('../utils/possiblePicks')
+const {
+  comBodyValidation,
+  gameBodyValidation,
+  gameFetchParamValidation,
+  gameListQueryValidation,
+} = require('./games.validations')
 
 // registra router para modelo Game
 const gamesRouter = Router()
 
-// validação de corpo da requisição
-const gameBodyValidation = celebrate({
-  [Segments.BODY]: {
-    player: Joi.string()
-      .valid(...possiblePicks)
-      .required(),
-    opponent: Joi.string()
-      .valid(...possiblePicks)
-      .required(),
-  },
-})
+/**
+ * GET: /limit=number&offset=number
+ * lista ultimos jogos
+ */
+gamesRouter.get('/', gameListQueryValidation, GameController.index)
 
-const comBodyValidation = celebrate({
-  [Segments.BODY]: {
-    player: Joi.string()
-      .valid(...possiblePicks)
-      .required(),
-  },
-})
+/**
+ * GET: /:id
+ * lista jogo pelo id
+ */
+gamesRouter.get('/:id', gameFetchParamValidation, GameController.fetch)
 
 /**
  * POST: /

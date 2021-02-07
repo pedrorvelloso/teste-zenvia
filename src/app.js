@@ -1,6 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 const errors = require('celebrate').errors
+const ApplicationError = require('./errors/ApplicationError')
+require('express-async-errors')
+
 const routes = require('./routes')
 
 const app = express()
@@ -18,6 +21,13 @@ app.use(errors())
 
 // Middleware para lidar com algum erro proveninente de algum erro de servidor
 app.use((error, request, response, next) => {
+  if (error instanceof ApplicationError) {
+    return response.status(error.statusCode).json({
+      error: error.error,
+      message: error.message,
+    })
+  }
+
   return response.status(500).json({
     error: 'Internal Server Error',
     message: error.message,

@@ -1,7 +1,17 @@
 const request = require('supertest')
+const { database } = require('../../src/database')
+const GameRepository = require('../../src/database/repositories/GameRepository')
 const app = require('../../src/app')
 
 describe('game integration', () => {
+  beforeEach(async () => {
+    await database.sync({ force: true })
+  })
+
+  afterEach(async () => {
+    await database.dropAllSchemas()
+  })
+
   it('should be able to play a game (player versus opponent)', async () => {
     const response = await request(app)
       .post('/game')
@@ -9,7 +19,8 @@ describe('game integration', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('result')
-    expect(response.body).toHaveProperty('game')
+    expect(response.body).toHaveProperty('player')
+    expect(response.body).toHaveProperty('opponent')
   })
 
   it('should not be able to play a game within incorrect pick', async () => {
@@ -40,7 +51,8 @@ describe('game integration', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('result')
-    expect(response.body).toHaveProperty('game')
+    expect(response.body).toHaveProperty('player')
+    expect(response.body).toHaveProperty('opponent')
   })
 
   it('should not be able to play a game (computer game) within incorrect pick', async () => {
@@ -50,5 +62,37 @@ describe('game integration', () => {
 
     expect(response.status).toBe(400)
     expect(response.body).toHaveProperty('validation')
+  })
+
+  it('should be able to list previous games', async () => {
+    await GameRepository.create({
+      result: 'player',
+      player: 'paper',
+      opponent: 'rock',
+    })
+
+    const response = await request(app).get('/game')
+
+    expect(response.status).toBe(200)
+    expect(response.body.length).toBe(1)
+  })
+
+  it('should be able to fetch game by id', async () => {
+    const game = await GameRepository.create({
+      result: 'player',
+      player: 'paper',
+      opponent: 'rock',
+    })
+
+    const response = await request(app).get('/game/' + game.id)
+
+    expect(response.status).toBe(200)
+    expect(response.body).toBeDefined()
+  })
+
+  it('should fail to fetch by id if id does not exists', async () => {
+    const response = await request(app).get('/game/1')
+
+    expect(response.status).toBe(404)
   })
 })

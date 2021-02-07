@@ -1,4 +1,5 @@
 require('dotenv/config')
+const { initDb } = require('./database')
 
 const app = require('./app')
 
@@ -6,6 +7,8 @@ const app = require('./app')
 const PORT = process.env.PORT || 5000
 
 // Dísponibiliza servidor HTTP
-app.listen(PORT, () => {
-  console.log(`🚀 Listening on port ${PORT}`)
+initDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Listening on port ${PORT}`)
+  })
 })
