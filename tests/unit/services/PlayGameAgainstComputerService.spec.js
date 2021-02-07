@@ -8,6 +8,7 @@ describe('PlayGameAgainstComputerService', () => {
 
     expect(result).toBeDefined()
     expect(result).toHaveProperty('result')
-    expect(result).toHaveProperty('game')
+    expect(result).toHaveProperty('player')
+    expect(result).toHaveProperty('opponent')
   })
 })

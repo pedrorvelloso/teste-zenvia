@@ -19,7 +19,7 @@ function create(request, response) {
   })
 
   // retorna resposta
-  return response.json({ result: gameResult, game: { player, opponent } })
+  return response.json(gameResult)
 }
 
 module.exports = { create }

@@ -8,5 +8,8 @@ describe('PlayGameService', () => {
     })
 
     expect(result).toBeDefined()
+    expect(result).toHaveProperty('result')
+    expect(result).toHaveProperty('player')
+    expect(result).toHaveProperty('opponent')
   })
 })

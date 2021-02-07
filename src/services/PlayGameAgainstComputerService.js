@@ -11,13 +11,16 @@ function execute({ playerPick }) {
   // define escolha aleatória do servidor
   const computerPick =
     possiblePicks[Math.floor(Math.random() * possiblePicks.length - 1) + 1]
-  // objeto do game para retorno no controller
-  const game = { player: playerPick, computer: computerPick }
 
   // aplica jogo entre jogador vs. computador (servidor)
   const result = jokenpo({ playerPick, opponentPick: computerPick })
 
-  return { result: result === 'opponent' ? 'computer' : result, game }
+  return {
+    result,
+    player: playerPick,
+    opponent: computerPick,
+    isComputerGame: true,
+  }
 }
 
 module.exports = { execute }

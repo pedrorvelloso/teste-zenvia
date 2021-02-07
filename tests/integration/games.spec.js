@@ -9,7 +9,8 @@ describe('game integration', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('result')
-    expect(response.body).toHaveProperty('game')
+    expect(response.body).toHaveProperty('player')
+    expect(response.body).toHaveProperty('opponent')
   })
 
   it('should not be able to play a game within incorrect pick', async () => {
@@ -40,7 +41,8 @@ describe('game integration', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('result')
-    expect(response.body).toHaveProperty('game')
+    expect(response.body).toHaveProperty('player')
+    expect(response.body).toHaveProperty('opponent')
   })
 
   it('should not be able to play a game (computer game) within incorrect pick', async () => {

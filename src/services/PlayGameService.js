@@ -9,7 +9,14 @@ const jokenpo = require('../utils/jokenpo')
  */
 function execute({ playerPick, opponentPick }) {
   // aplica regras de negócio para execução da partida
-  return jokenpo({ playerPick, opponentPick })
+  const result = jokenpo({ playerPick, opponentPick })
+
+  return {
+    result,
+    player: playerPick,
+    opponent: opponentPick,
+    isComputerGame: false,
+  }
 }
 
 module.exports = { execute }
