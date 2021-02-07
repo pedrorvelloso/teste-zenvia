@@ -5,6 +5,6 @@ const gamesRouter = require('./games.routes')
 const routes = Router()
 
 // Define rotas
-routes.use('/game', gamesRouter)
+routes.use('/games', gamesRouter)
 
 module.exports = routes

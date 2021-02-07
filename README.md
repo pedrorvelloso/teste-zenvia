@@ -30,6 +30,20 @@ npm test
 
 Caso queira rodar a aplicação em outra porta crie um arquivo `.env` (exemplo em `.env.example`) ou crie a variável de ambiente `PORT`
 
+## Rotas da aplicação
+- `POST` `/games`: Cria novo jogo
+  - Corpo da requisição:
+    - `player`: escolha do jogador (paper, rocker, scissors)
+    - `opponent`: escolha do oponente (paper, rocker, scissors)
+
+- `POST` `/games/com`: Cria novo jogo contra servidor (pick aleatório para oponente)
+  - Corpo da requisição:
+    - `player`: escolha do jogador (paper, rocker, scissors)
+
+- (BRANCH SQLITE) `GET` `/games?limit=<number>&offset=<number>`: Lista ultimos jogos
+
+- (BRANCH SQLITE) `GET` `/games/<id>`: Lista jogo pelo ID
+
 ## Estrutura de arquivos
 Resolvi mostrar algumas pastas em comum que aparecem bastante no padrão DDD. Não implementei como padrão DDD para não ficar uma estrutura muito extensa.
 
