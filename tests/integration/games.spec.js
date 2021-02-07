@@ -4,7 +4,7 @@ const app = require('../../src/app')
 describe('game integration', () => {
   it('should be able to play a game (player versus opponent)', async () => {
     const response = await request(app)
-      .post('/game')
+      .post('/games')
       .send({ player: 'paper', opponent: 'rock' })
 
     expect(response.status).toBe(200)
@@ -14,7 +14,7 @@ describe('game integration', () => {
 
   it('should not be able to play a game within incorrect pick', async () => {
     const response = await request(app)
-      .post('/game')
+      .post('/games')
       .send({ player: 'laser', opponent: 'rock' })
 
     expect(response.status).toBe(400)
@@ -22,12 +22,12 @@ describe('game integration', () => {
   })
 
   it('should not be able to play a game within incorrect body type', async () => {
-    let response = await request(app).post('/game').send({ plyr: 'rock' })
+    let response = await request(app).post('/games').send({ plyr: 'rock' })
 
     expect(response.status).toBe(400)
     expect(response.body).toHaveProperty('validation')
 
-    response = await request(app).post('/game').send({ oponnent: 'rock' })
+    response = await request(app).post('/games').send({ oponnent: 'rock' })
 
     expect(response.status).toBe(400)
     expect(response.body).toHaveProperty('validation')
@@ -35,7 +35,7 @@ describe('game integration', () => {
 
   it('should be able to play a game (player versus computer)', async () => {
     const response = await request(app)
-      .post('/game/com')
+      .post('/games/com')
       .send({ player: 'rock' })
 
     expect(response.status).toBe(200)
@@ -45,7 +45,7 @@ describe('game integration', () => {
 
   it('should not be able to play a game (computer game) within incorrect pick', async () => {
     const response = await request(app)
-      .post('/game/com')
+      .post('/games/com')
       .send({ player: 'laser' })
 
     expect(response.status).toBe(400)
