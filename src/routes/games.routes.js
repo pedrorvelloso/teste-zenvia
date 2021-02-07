@@ -14,7 +14,7 @@ const {
 const gamesRouter = Router()
 
 /**
- * GET: /limit=number&offset=number
+ * GET: ?limit=number&offset=number
  * lista ultimos jogos
  */
 gamesRouter.get('/', gameListQueryValidation, GameController.index)

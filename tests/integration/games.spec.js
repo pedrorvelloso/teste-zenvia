@@ -1,6 +1,6 @@
 const request = require('supertest')
 const { database } = require('../../src/database')
-const GameRepository = require('../../src/database/repositories/GamesRepository')
+const GameRepository = require('../../src/database/repositories/GameRepository')
 const app = require('../../src/app')
 
 describe('game integration', () => {
