@@ -16,4 +16,12 @@ app.use(routes)
 // Registra middleware de erros do `celebrate`
 app.use(errors())
 
+// Middleware para lidar com algum erro proveninente de algum erro de servidor
+app.use((error, request, response, next) => {
+  return response.status(500).json({
+    error: 'Internal Server Error',
+    message: error.message,
+  })
+})
+
 module.exports = app
